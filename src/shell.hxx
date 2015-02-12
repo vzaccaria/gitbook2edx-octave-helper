@@ -26,6 +26,7 @@ THE SOFTWARE.
 #include <fstream>
 #include <sstream>
 #include <stdio.h>
+#include <sys/stat.h>
 
 namespace shell {
 
@@ -58,6 +59,15 @@ namespace shell {
 		if (folder == 0)
     		folder = ("/tmp");
     	return folder;
+	}
+
+	static bool test(string how, string what) {
+		if(how=="-e") {
+			struct stat buffer;   
+  			return (stat (what.c_str(), &buffer) == 0); 
+		} else {
+			return false;
+		}
 	}
 
 	static int exec(string command, string &complete) {
