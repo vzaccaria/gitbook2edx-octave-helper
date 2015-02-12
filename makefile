@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := all
 
-.build/1-main.o: src/main.cxx
-	clang++ -c -I./src -std=c++11 -DUSE_STD --stdlib=libc++ src/main.cxx -o .build/1-main.o
+.build/1-main.o: src/shell.hxx src/underscore.hxx src/main.cxx
+	clang++ -c -I./src -std=c++11 -DUSE_STD src/main.cxx -o .build/1-main.o
 
 .build/linked0.x: .build/1-main.o
 	clang++ $^  -o $@
@@ -21,7 +21,7 @@ cmd-2:
 
 .PHONY : cmd-3
 cmd-3: 
-	./bin/octave-helper
+	./bin/octave-helper ./fix/t.m
 
 .PHONY : cmd-seq-4
 cmd-seq-4: 
